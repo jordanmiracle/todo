@@ -31,8 +31,19 @@ def loginuser(request):
     if request.method == 'GET':
         return render(request, 'todoapp/loginuser.html', {'form': AuthenticationForm()})
     else:
+        user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+        if user is None:
+            return render(request, 'todoapp/loginuser.html', {'form':AuthenticationForm(), 'error':'Username and password did not match'})
+        else:
+            login(request, user)
+            return redirect('currenttodos')
 
-            # Tell the user the passwords did not match.
+@login_required
+def logoutuser(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('home')
+
 
 
 def logoutuser(request):
