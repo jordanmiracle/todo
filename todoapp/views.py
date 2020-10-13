@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 
 def home(request):
-    return render(request, 'todo/home.html')
+    return render(request, 'todoapp/home.html')
 
 
 def signupuser(request):
@@ -35,6 +35,12 @@ def loginuser(request):
         if user is None:
             return render(request, 'todoapp/loginuser.html', {'form':AuthenticationForm(), 'error':'Username and password did not match.'})
             #Tell the user the passwords did not match.
+
+
+def logoutuser(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('home')
 
 def currenttodos(request):
     return render(request, 'todoapp/current.html')
