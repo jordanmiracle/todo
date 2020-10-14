@@ -1,8 +1,8 @@
 from django.db import models
-from datetime import datetime
+import datetime
 import os
 from django.contrib.auth.models import User
-
+from django.utils import timezone
 
 class Todo(models.Model):
     title = models.CharField(max_length=100)
