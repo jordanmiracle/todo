@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-
+from .forms import TodoForm
 
 def home(request):
     return render(request, 'todoapp/home.html')
@@ -20,7 +20,7 @@ def signupuser(request):
                     request.POST['username'], password=request.POST['password1'])
                 user.save()
                 login(request, user)
-                return redirect('currenttodos')
+                return redirect('currenttodo')
             except IntegrityError:
                 return render(request, 'todoapp/signupuser.html', {'form': UserCreationForm(), 'error': 'That user name has already been taken. Please choose a different name.'})
         else:
@@ -36,7 +36,7 @@ def loginuser(request):
             return render(request, 'todoapp/loginuser.html', {'form':AuthenticationForm(), 'error':'Username and password did not match'})
         else:
             login(request, user)
-            return redirect('currenttodos')
+            return redirect('currenttodo')
 
 @login_required
 def logoutuser(request):
@@ -45,12 +45,19 @@ def logoutuser(request):
         return redirect('home')
 
 
+def createtodo(request):
+    if request.method == 'GET':
+        return render(request, 'todoapp/createtodo.html', {'form':TodoForm()})
+    else:
+        try:
+            form = TodoForm(request.POST)
+            newtodo = form.save(commit=False)
+            newtodo.user = request.user
+            newtodo.save()
+            return redirect('currenttodo')
+        except ValueError:
+            return render(request, 'todoapp/createtodo.html', {'form':TodoForm(), 'error':'Bad data passed in. Try again.' })
 
-def logoutuser(request):
-    if request.method == 'POST':
-        logout(request)
-        return redirect('home')
 
-
-def currenttodos(request):
+def currenttodo(request):
     return render(request, 'todoapp/current.html')
