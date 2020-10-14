@@ -5,6 +5,7 @@ from django.db import IntegrityError
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import TodoForm
+from .models import Todo
 
 def home(request):
     return render(request, 'todoapp/home.html')
@@ -60,4 +61,5 @@ def createtodo(request):
 
 
 def currenttodo(request):
-    return render(request, 'todoapp/current.html')
+    todos = Todo.objects.filter(user=request.user, datecompleted__isnull=True)
+    return render(request, 'todoapp/current.html', {'todos':todos})
