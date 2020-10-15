@@ -8,7 +8,10 @@
 <ul>
 {% for todo in todos %}
 
-<li>{% if todo.important %}<b>{% endif %}{{ todo.title }}{% if todo.important %}</b>{% endif %}{% if todo.memo %} - {{ todo.memo }}{% endif %} </li><br>
+<li>
+{% if todo.important %}<b>{% endif %}{{ todo.title }}{% if todo.important %}</b>{% endif %}
+{% if todo.memo %} - {{ todo.memo }}{% endif %}
+</li><br>
 <br><br>
 {% endfor %}
 </ul>{% endif %}
