@@ -39,9 +39,9 @@ def loginuser(request):
             return render(request, 'todoapp/loginuser.html', {'form':AuthenticationForm(), 'error':'Username and password did not match'})
         else:
             login(request, user)
-            return redirect('currenttodo')
+            return redirect('currenttodos')
 
-@login_required
+
 def logoutuser(request):
     if request.method == 'POST':
         logout(request)
@@ -57,21 +57,21 @@ def createtodo(request):
             newtodo = form.save(commit=False)
             newtodo.user = request.user
             newtodo.save()
-            return redirect('currenttodo')
+            return redirect('currenttodos')
         except ValueError:
             return render(request, 'todoapp/createtodo.html', {'form':TodoForm(), 'error':'Bad data passed in. Try again.' })
 
 
-def currenttodo(request):
+def currenttodos(request):
     todos = Todo.objects.filter(user=request.user, datecompleted__isnull=True)
-    return render(request, 'todoapp/current.html', {'todos':todos})
+    return render(request, 'todoapp/currenttodos.html', {'todos':todos})
 
-@login_required
+
 def viewtodo(request, todo_pk):
     todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
     if request.method == 'GET':
         form = TodoForm(instance=todo)
-        return render(request, 'todoapp/current.html', {'todos':todos})
+        return render(request, 'todoapp/viewtodo.html', {'todos':todo, 'form':form, 'error':'Bad info'})
     else:
         try:
             form = TodoForm(request.POST, instance=todo)
@@ -81,8 +81,7 @@ def viewtodo(request, todo_pk):
             return render(request, 'todoapp/viewtodo.html', {'todo':todo, 'form':form, 'error':'Bad Info'})
 
 
-@login_required
-def completetodo(request, todo_pk):
+def completedtodos(request, todo_pk):
     todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
     if request.method == 'POST':
         todo.datecompleted = timezone.now()
