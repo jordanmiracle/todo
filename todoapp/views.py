@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 
 
 def home(request):
-    return render(request, 'todoapp/home.html')
+  return render(request, 'todoapp/home.html')
 
 
 def signupuser(request):
@@ -71,22 +71,29 @@ def currenttodos(request):
 
 
 def viewtodo(request, todo_pk):
-    todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
-    if request.method == 'GET':
-      form = TodoForm(instance=todo)
-      return render(request, 'todoapp/viewtodo.html', {'todo': todo, 'form': form, 'error': 'Bad info'})
-    else:
-      try:
-        form = TodoForm(request.POST, instance=todo)
-        form.save()
-        return redirect('currenttodos')
-      except ValueError:
-        return render(request, 'todoapp/viewtodo.html', {'todo': todo, 'form': form, 'error': 'Bad Info'})
+  todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
+  if request.method == 'GET':
+    form = TodoForm(instance=todo)
+    return render(request, 'todoapp/viewtodo.html', {'todo': todo, 'form': form, 'error': 'Bad info'})
+  else:
+    try:
+      form = TodoForm(request.POST, instance=todo)
+      form.save()
+      return redirect('currenttodos')
+    except ValueError:
+      return render(request, 'todoapp/viewtodo.html', {'todo': todo, 'form': form, 'error': 'Bad Info'})
 
 
 def completetodo(request, todo_pk):
-    todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
-    if request.method == 'POST':
-        todo.datecompleted = timezone.now()
-        todo.save()
-        return redirect('currenttodos')
+  todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
+  if request.method == 'POST':
+    todo.datecompleted = timezone.now()
+    todo.save()
+    return redirect('currenttodos')
+
+
+def deletetodo(request, todo_pk):
+  todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
+  if request.method == 'POST':
+    todo.delete()
+    return redirect('currenttodos')
