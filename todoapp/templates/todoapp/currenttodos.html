@@ -3,18 +3,18 @@
 {% block content %}
 
 
-    {% if todos %}
+  {% if todos %}
 
-<ul>
-{% for todo in todos %}
+    <ul>
+      {% for todo in todos %}
+        <a href="{% url 'viewtodo' todo.id %}"
+           class="list-group-item list-group-item-action{% if todo.important %} list-group-item-danger{% endif %}"><b>{{ todo.title }}</b>
+          {% if todo.memo %} - {{ todo.memo|truncatechars:30 }}{% endif %}</a>
+      {% endfor %}
+      <br>
+      <br><br>
 
-<li>
-{% if todo.important %}<b>{% endif %}{{ todo.title }}{% if todo.important %}</b>{% endif %}
-{% if todo.memo %} - {{ todo.memo | truncatechars:30 }}{% endif %}
-</li><br>
-<br><br>
-{% endfor %}
-</ul>{% endif %}
+    </ul>{% endif %}
 
-{% csrf_token %}
-{% endblock %}
+  {% csrf_token %}
+{% endblock content %}
