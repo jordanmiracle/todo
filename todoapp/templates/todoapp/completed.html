@@ -1,9 +1,21 @@
+{% extends 'todoapp/base.html' %}
+
 {% block content %}
 
 
-  <ul>
-    <li>
-      {{ todo.title }}
+  {% if todos %}
 
+    <ul>
+      {% for todo in todos %}
+        <a href="{% url 'viewtodo' todo.id %}"
+           class="list-group-item list-group-item-action{% if todo.important %} list-group-item-danger{% endif %}"><b>{{ todo.title }}</b>
+          {% if todo.memo %} - {{ todo.memo|truncatechars:30 }}{% endif %}
+        {{ todo.datecompleted|date:'M j Y H:i' }}</a>
+      {% endfor %}
+      <br>
+      <br><br>
 
-{% endblock %}
+    </ul>{% endif %}
+
+  {% csrf_token %}
+{% endblock content %}
