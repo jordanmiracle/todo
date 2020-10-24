@@ -7,6 +7,9 @@ from .forms import TodoForm
 from .models import Todo
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from rest_framework import viewsets
+from .serializers import TodoSerializer
+from .models import Todo
 
 
 def home(request):
@@ -70,7 +73,7 @@ def createtodo(request):
 
 @login_required
 def currenttodos(request):
-    todos = Todo.objects.filter(user=request.user, datecompleted__isnull=True)
+    todos = Todo.objects.filter(user=request.user, datecompleted__isnull=False)
     return render(request, 'todoapp/currenttodos.html', {'todos': todos})
 
 
@@ -110,3 +113,10 @@ def deletetodo(request, todo_pk):
     if request.method == 'POST':
         todo.delete()
         return redirect('currenttodos')
+
+
+class TodoView(viewsets.ModelViewSet):
+    serializer_class = TodoSerializer
+    queryset = Todo.objects.all()
+
+
