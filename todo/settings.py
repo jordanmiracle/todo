@@ -42,12 +42,14 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
+
 REST_FRAMEWORK = {  # added
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny'
     ],
     'DATETIME_FORMAT': "%m/%d/%Y %H:%M:%S",
 }
+
 
 SESSION_COOKIE_SECURE = False
 
