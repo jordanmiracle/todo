@@ -37,10 +37,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'todoapp',
     'rest_framework',
-    'corsheaders',
+    'rest_framework.authtoken',
+   # 'api',
 ]
 
 SESSION_COOKIE_SECURE = False
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -120,9 +129,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 LOGIN_URL = '/login'
 
-# we whitelist localhost:3000 because that's where frontend will be served
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-    'http://localhost:8000',
-    'http://localhost:8080',
-]
+
