@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -39,6 +41,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
 ]
+
+REST_FRAMEWORK = {  # added
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny'
+    ],
+    'DATETIME_FORMAT': "%m/%d/%Y %H:%M:%S",
+}
 
 SESSION_COOKIE_SECURE = False
 
@@ -126,3 +135,4 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:8000',
     'http://localhost:8080',
 ]
+

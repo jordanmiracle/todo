@@ -3,6 +3,8 @@ import datetime
 import os
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.contrib.auth import get_user_model
+
 
 class Todo(models.Model):
     title = models.CharField(max_length=100)
