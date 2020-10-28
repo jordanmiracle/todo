@@ -79,7 +79,7 @@ def viewtodo(request, todo_pk):
     todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
     if request.method == 'GET':
         form = TodoForm(instance=todo)
-        return render(request, 'todoapp/viewtodo.html', {'todo': todo, 'form': form, 'error': 'Bad info'})
+        return render(request, 'todoapp/viewtodo.html', {'todo': todo, 'form': form})
     else:
         try:
             form = TodoForm(request.POST, instance=todo)
