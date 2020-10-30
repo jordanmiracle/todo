@@ -55,8 +55,12 @@ INSTALLED_APPS = [
    # 'api',
 ]
 
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
 SESSION_COOKIE_SECURE = True
-
+CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -76,7 +80,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CSRF_COOKIE_SECURE = True
 
 ROOT_URLCONF = 'todo.urls'
 
