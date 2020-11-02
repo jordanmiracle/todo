@@ -1,10 +1,14 @@
 .env
 *.db.sqlite3
+
+### Django ###
 *.log
 *.pot
 *.pyc
 /__pycache__
 local_settings.py
+### Django ###
+
 db.sqlite3
 db.sqlite3-journal
 media
@@ -27,3 +31,6 @@ share/python-wheels/
 *.egg
 MANIFEST
 .vscode
+
+
+__pycache__/
