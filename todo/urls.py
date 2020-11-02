@@ -36,6 +36,6 @@ urlpatterns = [
     path('todo/<int:todo_pk>/delete', views.deletetodo, name='deletetodo'),
 
     # API
-    path('api/', include('api.urls')),
+    # path('api/', include('api.urls')),
 
 ]
