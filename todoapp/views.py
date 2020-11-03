@@ -26,7 +26,7 @@ def signupuser(request):
                     request.POST['username'], password=request.POST['password1'])
                 user.save()
                 login(request, user)
-                return redirect('currenttodo')
+                return redirect('currenttodos')
             except IntegrityError:
                 return render(request, 'todoapp/signupuser.html', {'form': UserCreationForm(),
                                                                    'error': 'That user name has already been taken. Please choose a different name.'})
