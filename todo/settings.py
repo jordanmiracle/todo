@@ -14,6 +14,7 @@ import django_heroku
 import os
 import dj_database_url
 import psycopg2 as db
+from django.conf.global_settings import DATABASES
 from psycopg2 import connect
 import django_heroku
 from django.contrib import staticfiles, postgres
@@ -50,9 +51,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'todoapp',
-    'rest_framework',
-    'rest_framework.authtoken',
-   # 'api',
+    #  'rest_framework',
+    #  'rest_framework.authtoken',
+    # 'api',
 ]
 
 SECURE_BROWSER_XSS_FILTER = True
@@ -62,12 +63,12 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    ]
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework.authentication.TokenAuthentication',
+#         'rest_framework.authentication.SessionAuthentication',
+#     ]
+# }
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -79,7 +80,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 
 ROOT_URLCONF = 'todo.urls'
 
@@ -104,17 +104,18 @@ WSGI_APPLICATION = 'todo.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'tododb',
         'USER': 'jordanmiracletodo',
         'PASSWORD': 'todopassword',
-        'HOST': 'localhost', # Or something like this
+        'HOST': 'localhost',  # Or something like this
         'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
