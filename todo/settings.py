@@ -79,6 +79,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'todo.urls'
@@ -120,7 +121,7 @@ DATABASES = {
 
 DATABASE_URL = os.environ['DATABASE_URL']
 
-conn = db.connect(DATABASE_URL, sslmode='require')
+# conn = db.connect(DATABASE_URL, sslmode='require')
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -165,8 +166,6 @@ options = DATABASES['default'].get('OPTIONS', {})
 options.pop('sslmode', None)
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
