@@ -117,6 +117,11 @@ DATABASES = {
     }
 }
 
+
+DATABASE_URL = os.environ['DATABASE_URL']
+
+conn = db.connect(DATABASE_URL, sslmode='require')
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
